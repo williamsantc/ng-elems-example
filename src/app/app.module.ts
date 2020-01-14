@@ -1,16 +1,36 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {Injector, NgModule, Type} from '@angular/core';
+import {CustomWebComponentComponent} from './elements/custom-web-component/custom-web-component.component';
+import {CustomFormComponent} from './elements/custom-form/custom-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {createCustomElement} from '@angular/elements';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [CustomWebComponentComponent, CustomFormComponent],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule,
+    CommonModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  entryComponents: [CustomFormComponent, CustomWebComponentComponent],
+  bootstrap: []
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor(private injector: Injector) {
+  }
+
+  ngDoBootstrap() {
+    this.loadAsWebComponent(CustomWebComponentComponent, 'custom-web-component');
+    this.loadAsWebComponent(CustomFormComponent, 'custom-form-component');
+  }
+
+  // tslint:disable-next-line:ban-types
+  private loadAsWebComponent(component: Type<any>, componentName: string) {
+    const ngElement = createCustomElement(component, {
+      injector: this.injector
+    });
+    customElements.define(componentName, ngElement);
+  }
+}

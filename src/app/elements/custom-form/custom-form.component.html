@@ -1,0 +1,12 @@
+<form [formGroup]="form">
+  <label for="name">Name:</label>
+  <input id="name" type="text" #name formControlName="name">
+  <br>
+  <label for="lastName">Last Name:</label>
+  <input id="lastName" type="text" #lastName formControlName="lastName">
+  <br>
+  <label for="email">Last Name:</label>
+  <input id="email" type="text" #email formControlName="email">
+  <br>
+  <button (click)="validateForm()">Submit</button>
+</form>
