@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-custom-web-component',
   templateUrl: './custom-web-component.component.html',
   styleUrls: ['./custom-web-component.component.css']
 })
