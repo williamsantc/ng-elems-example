@@ -17,12 +17,25 @@ Create an index.html at `dist/unified-script` folder and add the following html:
   <title>Document</title>
 </head>
 <body>
-<custom-web-component value="2"></custom-web-component>
-<custom-form-component></custom-form-component>
 <script src="elements-es2015.js" type="module"></script>
 <script src="elements-es5.js" nomodule defer></script>
-</body>
-</html>
+<script type="module">
+  import './elements-es2015.js';
+
+  const webComp  = document.createElement('custom-web-component');
+  const formComp  = document.createElement('custom-form-component');
+
+  webComp.addEventListener('loaded', () => console.log('custom web component mounted!'));
+  formComp.addEventListener('loaded', () => console.log('custom form component mounted!'));
+
+  document.body.append(webComp);
+  document.body.append(formComp);
+
+
+  webComp.setState({
+    message: 'hi!!',
+    entryData: {
+      u
 ```
 
 ## Run

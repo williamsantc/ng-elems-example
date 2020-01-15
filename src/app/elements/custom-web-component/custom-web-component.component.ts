@@ -1,53 +1,32 @@
-import {ApplicationRef, Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ApplicationRef, Component, ElementRef, Input, OnInit} from '@angular/core';
+import {BaseStateComponent} from '../base-state.component';
+import {EmmitComponentLoad} from '../decorators/component-load.decorator';
 
 @Component({
   templateUrl: './custom-web-component.component.html',
   styleUrls: ['./custom-web-component.component.css']
 })
-export class CustomWebComponentComponent implements OnInit {
+export class CustomWebComponentComponent extends BaseStateComponent implements OnInit {
 
   @Input() public value: string;
-  public state: any = {
-    message: '',
-    counter: ''
-  };
 
-  @Input()
-  public get setState() {
-    return (newState) => {
-      this._setStateFromOutside(newState);
-      this.app.tick();
+  constructor(app: ApplicationRef, el: ElementRef) {
+    super(app, el);
+    this.state = {
+      message: '',
+      entryData: {
+        url: '',
+        method: '',
+        body: {},
+        headers: {},
+      }
     };
   }
 
-  public set setState(value: any) {
-    console.error('setState method cannot be override');
-  }
-
-  constructor(private app: ApplicationRef) {
-  }
-
+  @EmmitComponentLoad
   ngOnInit() {
     console.log('component mounted');
   }
 
 
-  private _setStateFromOutside(newState) {
-    if (typeof newState !== 'object') {
-      console.error('new state is not an object');
-      return;
-    }
-
-    if (
-      Object.keys(newState).length > 0 &&
-      !Object.keys(newState).every(objectKey => Object.keys(this.state).includes(objectKey))
-    ) {
-      console.error('adding new props to state is not allowed');
-      return;
-    }
-    this.state = {
-      ...this.state,
-      ...newState,
-    };
-  }
 }

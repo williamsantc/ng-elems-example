@@ -1,17 +1,21 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {ApplicationRef, Component, ElementRef, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {BaseStateComponent} from '../base-state.component';
+import {EmmitComponentLoad} from '../decorators/component-load.decorator';
 
 @Component({
   templateUrl: './custom-form.component.html',
   styleUrls: ['./custom-form.component.css']
 })
-export class CustomFormComponent implements OnInit {
+export class CustomFormComponent extends BaseStateComponent implements OnInit {
 
   public form: FormGroup;
 
-  constructor(private el: ElementRef) {
+  constructor(app: ApplicationRef, el: ElementRef) {
+    super(app, el);
   }
 
+  @EmmitComponentLoad
   ngOnInit() {
     this.buildForm();
   }
