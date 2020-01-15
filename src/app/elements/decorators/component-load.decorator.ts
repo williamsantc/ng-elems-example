@@ -1,4 +1,4 @@
-import {BaseStateComponent} from '../base-state.component';
+import {NgElementsBase} from '../ng-elements.base';
 
 export function EmmitComponentLoad(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   if (propertyKey !== 'ngOnInit') {
@@ -7,7 +7,7 @@ export function EmmitComponentLoad(target: any, propertyKey: string, descriptor:
   const originalMethod = descriptor.value;
   // tslint:disable-next-line:only-arrow-functions
   descriptor.value = function(...args: any[]) {
-    if (!(this instanceof BaseStateComponent)) {
+    if (!(this instanceof NgElementsBase)) {
       throw new Error('EmmitComponentLoad Decorator can only be applied with BaseStateComponent inheritance');
     }
     originalMethod.apply(this, args);

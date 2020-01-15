@@ -1,11 +1,12 @@
 import {ApplicationRef, ElementRef, Input} from '@angular/core';
 
-export class BaseStateComponent {
+export class NgElementsBase {
 
   constructor(protected app: ApplicationRef,
               protected el: ElementRef) {
 
   }
+
   public state: any = {};
 
   @Input()
@@ -22,6 +23,11 @@ export class BaseStateComponent {
 
   protected emmitComponentLoad() {
     const domEvent = new CustomEvent('loaded', {detail: true});
+    this.el.nativeElement.dispatchEvent(domEvent);
+  }
+
+  protected emitEvent(eventName: string, val: any) {
+    const domEvent = new CustomEvent(eventName, {detail: val});
     this.el.nativeElement.dispatchEvent(domEvent);
   }
 
@@ -42,7 +48,5 @@ export class BaseStateComponent {
       ...this.state,
       ...newState,
     };
-
-    console.log(this.state);
   }
 }

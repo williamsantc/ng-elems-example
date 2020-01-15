@@ -35,7 +35,15 @@ Create an index.html at `dist/unified-script` folder and add the following html:
   webComp.setState({
     message: 'hi!!',
     entryData: {
-      u
+      url: 'https://jakearchibald.com/2017/es-modules-in-browsers/',
+      method: 'GET',
+      body: {},
+      headers: {},
+    }
+  });
+</script>
+</body>
+</html>
 ```
 
 ## Run

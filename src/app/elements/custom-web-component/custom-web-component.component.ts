@@ -1,12 +1,12 @@
 import {ApplicationRef, Component, ElementRef, Input, OnInit} from '@angular/core';
-import {BaseStateComponent} from '../base-state.component';
+import {NgElementsBase} from '../ng-elements.base';
 import {EmmitComponentLoad} from '../decorators/component-load.decorator';
 
 @Component({
   templateUrl: './custom-web-component.component.html',
   styleUrls: ['./custom-web-component.component.css']
 })
-export class CustomWebComponentComponent extends BaseStateComponent implements OnInit {
+export class CustomWebComponentComponent extends NgElementsBase implements OnInit {
 
   @Input() public value: string;
 
@@ -25,7 +25,7 @@ export class CustomWebComponentComponent extends BaseStateComponent implements O
 
   @EmmitComponentLoad
   ngOnInit() {
-    console.log('component mounted');
+    console.log('CustomWebComponentComponent ngOnInit executed');
   }
 
 

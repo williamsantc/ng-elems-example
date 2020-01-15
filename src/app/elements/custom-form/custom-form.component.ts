@@ -1,13 +1,13 @@
 import {ApplicationRef, Component, ElementRef, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BaseStateComponent} from '../base-state.component';
+import {NgElementsBase} from '../ng-elements.base';
 import {EmmitComponentLoad} from '../decorators/component-load.decorator';
 
 @Component({
   templateUrl: './custom-form.component.html',
   styleUrls: ['./custom-form.component.css']
 })
-export class CustomFormComponent extends BaseStateComponent implements OnInit {
+export class CustomFormComponent extends NgElementsBase implements OnInit {
 
   public form: FormGroup;
 
@@ -29,15 +29,10 @@ export class CustomFormComponent extends BaseStateComponent implements OnInit {
     this.form = new FormGroup(formControls);
   }
 
-  private customEmit(val) {
-    const domEvent = new CustomEvent('form-filled', {detail: val});
-    this.el.nativeElement.dispatchEvent(domEvent);
-  }
-
   public validateForm() {
     if (this.form.valid) {
       alert('validated!');
-      this.customEmit(this.form.value);
+      this.emitEvent('form-filled', this.form.value);
     } else {
       alert('validation faied');
     }
