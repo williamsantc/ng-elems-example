@@ -5,6 +5,7 @@ import {CustomFormComponent} from './elements/custom-form/custom-form.component'
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {createCustomElement} from '@angular/elements';
+import 'rxjs';
 
 @NgModule({
   declarations: [CustomWebComponentComponent, CustomFormComponent],
