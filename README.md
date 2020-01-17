@@ -17,20 +17,17 @@ Create an index.html at `dist/unified-script` folder and add the following html:
   <title>Document</title>
 </head>
 <body>
+<custom-web-component></custom-web-component>
+<custom-form-component></custom-form-component>
 <script src="elements-es2015.js" type="module"></script>
 <script src="elements-es5.js" nomodule defer></script>
 <script type="module">
-  import './elements-es2015.js';
 
-  const webComp  = document.createElement('custom-web-component');
-  const formComp  = document.createElement('custom-form-component');
+  const webComp  = document.querySelector('custom-web-component');
+  const formComp  = document.querySelector('custom-form-component');
 
-  webComp.addEventListener('loaded', () => console.log('custom web component mounted!'));
-  formComp.addEventListener('loaded', () => console.log('custom form component mounted!'));
-
-  document.body.append(webComp);
-  document.body.append(formComp);
-
+  /* webComp.addEventListener('loaded', () => console.log('custom web component mounted!'));
+   formComp.addEventListener('loaded', () => console.log('custom form component mounted!'));*/
 
   webComp.setState({
     message: 'hi!!',
@@ -41,6 +38,8 @@ Create an index.html at `dist/unified-script` folder and add the following html:
       headers: {},
     }
   });
+
+  formComp.addEventListener('form-filled', (event) => console.log(event.detail));
 </script>
 </body>
 </html>
@@ -56,12 +55,24 @@ Use this javascript code in devTools console
 ```javascript
 // get components DOM objects
 
-const webComp = document.querySelector('custom-web-component')
-const formComp = document.querySelector('custom-form-component')
+const webComp = document.querySelector('custom-web-component');
+const formComp = document.querySelector('custom-form-component');
 
 // Pass data to component using React "useState" concept (INPUT):
-webComp.setState({message: 'hi there!'})
+webComp.setState({message: 'hi there!'});
+
+// Read properties from state
+webComp.getState('message');
 
 // listen event from component with custom event API (OUTPUT):
 formComp.addEventListener('form-filled', (event) => console.log(event.detail))
 ```
+
+## Consider
+
+* Delete `AppComponent` (We don't need to bootstrap a root component).
+* Delete `AppRoutingModule` (We don't use routes in web components).
+* Avoid using style-frameworks. Write your own styles or import just what you really need from style-frameworks (`e.g. Sass @import`).
+* Don't use src/styles to define your component styles (each component should have its own styles).
+* All components should have shadow DOM encapsulation to keep component styles scoped.
+* For performance reasons, you should disable angular zone (`main.ts`) and handle manually change detections on each component (Use `NgElementBase`).

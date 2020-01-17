@@ -5,7 +5,7 @@ import {CustomFormComponent} from './elements/custom-form/custom-form.component'
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {createCustomElement} from '@angular/elements';
-import 'rxjs';
+import {StateService} from './services/state.service';
 
 @NgModule({
   declarations: [CustomWebComponentComponent, CustomFormComponent],
@@ -14,6 +14,7 @@ import 'rxjs';
     ReactiveFormsModule,
     CommonModule
   ],
+  providers: [StateService],
   entryComponents: [CustomFormComponent, CustomWebComponentComponent],
   bootstrap: []
 })
