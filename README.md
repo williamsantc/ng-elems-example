@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 # Serve
 
-Try components in development mode (Compiler set to AOT to handle inheritance dependency injection)
+Run `npm run serve` Try components in development mode (Compiler set to AOT to handle inheritance dependency injection)
 
 ## Build
 
