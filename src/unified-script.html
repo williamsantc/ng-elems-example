@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Document</title>
+</head>
+<body>
+<custom-web-component>
+  <p>using shadow DOM</p>
+</custom-web-component>
+
+<p class="color">Outside Component, class "color" should not be applied</p>
+<!--
+This is an example of angular material implementation as web component, it has a lot of limitations!
+read consider README section and MaterialComponentModule doc.
+-->
+<material-component></material-component>
+<custom-form-component></custom-form-component>
+<!-- ES6 Bundle -->
+<script src="elements-bundle-es2015.js" type="module"></script>
+<!--
+ES5 files needs to load each script one by one
+TODO: Create a ES5 bundle including web components polyfills and loader after angular polyfills
+ -->
+<script src="elements-runtime-es5.js" nomodule></script>
+<script src="elements-polyfills-es5.js" nomodule></script>
+<!-- Edge support, limited behavior (see polyfills README sections). -->
+<script src="webcomponents/webcomponents-loader.js" nomodule></script>
+<script src="elements-main-es5.js" nomodule></script>
+<script type="module">
+  const webComp = document.querySelector('custom-web-component');
+  const formComp = document.querySelector('custom-form-component');
+  webComp.setState({
+    message: 'lorem!!',
+    entryData: {
+      url: 'https://jakearchibald.com/2017/es-modules-in-browsers/',
+      method: 'WHAAAT',
+      body: {},
+      headers: {},
+    }
+  });
+  formComp.addEventListener('form-filled', (event) => console.log(event.detail));
+</script>
+<script nomodule>
+  "use strict"
+  /*
+  * Web Components mount polyfill is async, you need a listener for the event WebComponentsReady
+  * to interact with components
+  * */
+  window.addEventListener('WebComponentsReady', function () {
+    var webComp = document.querySelector('custom-web-component');
+    var formComp = document.querySelector('custom-form-component');
+    webComp.setState({
+      message: 'lorem!!',
+      entryData: {
+        url: 'https://jakearchibald.com/2017/es-modules-in-browsers/',
+        method: 'WHAAAT',
+        body: {},
+        headers: {},
+      }
+    });
+    formComp.addEventListener('form-filled', function (event) {
+      console.log(event.detail)
+    });
+  });
+</script>
+</body>
+</html>

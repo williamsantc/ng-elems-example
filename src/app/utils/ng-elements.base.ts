@@ -1,17 +1,16 @@
-import {ChangeDetectorRef, ElementRef, Input} from '@angular/core';
+import {ApplicationRef, ChangeDetectorRef, ElementRef, Input} from '@angular/core';
 import {StateService} from '../services/state.service';
 /*
 * Base component to handle web component communication
 * */
 export class NgElementsBase {
 
-
   public state: any = {};
 
   @Input()
   public get setState() {
     return (newState) => {
-      this.state = this.stateService.setStateFromOutside(newState, this.state);
+      this.state = this.stServ.setStateFromOutside(newState, this.state);
       this.cd.detectChanges();
     };
   }
@@ -23,7 +22,7 @@ export class NgElementsBase {
   @Input()
   public get getState() {
     return (property) => {
-      return this.stateService.getStateFromOutSide(property, this.state);
+      return this.stServ.getStateFromOutSide(property, this.state);
     };
   }
 
@@ -31,9 +30,14 @@ export class NgElementsBase {
     console.error('getState method cannot be override');
   }
 
+  /* *
+  * JIT compiler: requires child constructor and call super
+  * AOT compiler: doesn't require child constructor
+  * */
   constructor(protected cd: ChangeDetectorRef,
               protected el: ElementRef,
-              protected stateService: StateService) {
+              protected stServ: StateService,
+              protected appRef: ApplicationRef) {
 
   }
 

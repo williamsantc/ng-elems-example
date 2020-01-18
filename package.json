@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "cd dist/unified-script && serve",
-    "build": "ng build --prod --aot --output-hashing=none && cd dist && rm -rf unified-script && mkdir unified-script && cd ng-ceiba-elems && cat runtime-es2015.js polyfills-es2015.js main-es2015.js > ../unified-script/elements-es2015.js && cat runtime-es5.js polyfills-es5.js main-es5.js > ../unified-script/elements-es5.js",
+    "serve": "ng serve --aot",
+    "build": "ng build --prod --aot --output-hashing=none && cd dist && rm -rf unified-script && mkdir unified-script && cd ng-ceiba-elems && cat runtime-es2015.js polyfills-es2015.js main-es2015.js > ../unified-script/elements-bundle-es2015.js && cp runtime-es5.js ../unified-script/elements-runtime-es5.js && cp polyfills-es5.js ../unified-script/elements-polyfills-es5.js && cp main-es5.js ../unified-script/elements-main-es5.js && cp -R webcomponents ../unified-script && cp ../../src/unified-script.html ../unified-script/index.html",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -12,14 +13,18 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.14",
+    "@angular/cdk": "~8.2.3",
     "@angular/common": "~8.2.14",
     "@angular/compiler": "~8.2.14",
     "@angular/core": "~8.2.14",
     "@angular/elements": "^8.2.14",
     "@angular/forms": "~8.2.14",
+    "@angular/material": "^8.2.3",
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "core-js": "^3.6.4",
+    "hammerjs": "^2.0.8",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
@@ -32,6 +37,7 @@
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
+    "@webcomponents/webcomponentsjs": "^2.4.1",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
